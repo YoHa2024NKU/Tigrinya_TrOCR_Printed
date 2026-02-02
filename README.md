@@ -38,7 +38,7 @@ Evaluation was conducted on the full **Tigrinya Test Set (N=5,000)**.
 
 > *Note: Standard fine-tuning achieved decent character recognition (20% CER) but failed completely on exact sentence matching due to skipping the first letter of every word. The proposed Word-Aware Loss rectified this structural flaw.*
 
-![Training Loss Curve](images/training_loss_curve.bmp)
+![Training Loss Curve](images/training_loss_curve.png)
 *(Figure: Training convergence over 12,500 steps)*
 
 ---
