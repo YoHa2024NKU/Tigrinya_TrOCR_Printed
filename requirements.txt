@@ -1,0 +1,41 @@
+# --extra-index-url https://download.pytorch.org/whl/cu124
+# ============================================================================
+# TIGRINYA OCR - REQUIREMENTS
+# ============================================================================
+# START BY INSTALLING THE FOLLOWING TWO DEPENDENCIES MANUALLY:
+    # python -m pip install --upgrade pip
+    # pip install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128 --default-timeout=1000
+# !!! CRITICAL: These are commented out (#) because I installed them manually.
+# !!! This prevents pip from trying to re-download 3GB of data.
+# torch
+# torchvision
+# torchaudio
+
+# Transformers & NLP
+transformers>=4.40.0
+datasets>=2.14.0
+tokenizers>=0.13.0
+sentencepiece>=0.1.99
+protobuf>=3.20.0
+
+# Data Processing
+pandas>=2.0.0
+numpy>=1.24.0
+Pillow>=10.0.0
+
+# Evaluation
+evaluate>=0.4.0
+jiwer>=3.0.0
+scikit-learn>=1.3.0
+
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Utilities
+tqdm>=4.65.0
+accelerate>=0.20.0
+requests>=2.31.0
+packaging>=23.0
+flask
+pyyaml
