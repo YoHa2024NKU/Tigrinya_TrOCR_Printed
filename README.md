@@ -83,7 +83,7 @@ python train.py
 Generate CER, WER, and Accuracy metrics on the test set.
 
 ```bash
-python evaluate.py
+python prediction.py
 ```
 
 ### 3. Visualization
