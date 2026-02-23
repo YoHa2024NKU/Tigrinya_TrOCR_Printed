@@ -1,25 +1,38 @@
 paths:
-  data_root: "data"  # Change this to your actual data path
-  output_dir: "outputs"
-  tokenizer_dir: "outputs/tokenizer"
-  finetuned_dir: "outputs/finetuned_model"
+  data_root: "data"
+  output_dir: "outputs/fast_model"
+  model_name: "microsoft/trocr-base-handwritten"
 
 model:
   pretrained_model: "microsoft/trocr-base-handwritten"
   max_length: 128
+  vocab_extension: 230  # Ethiopic tokens added to tokenizer
 
 training:
-  batch_size: 8
-  gradient_accumulation_steps: 1
+  per_device_train_batch_size: 2
+  gradient_accumulation_steps: 4
+  effective_batch_size: 8  # 2 x 4
   learning_rate: 4.0e-5
-  weight_decay: 0.01
-  warmup_ratio: 0.1
+  weight_decay: 0.0  # HuggingFace default
+  warmup_ratio: 0.0  # HuggingFace default, linear scheduler
   num_epochs: 10
   fp16: true
-  gradient_checkpointing: true
+  gradient_checkpointing: false
   use_augmentation: false
-  num_beams_eval: 1
-  save_steps: 500
-  save_total_limit: 2
-  logging_steps: 100
+  word_aware_loss_weight: 2.0  # Weight for space-prefixed tokens
   seed: 42
+
+checkpointing:
+  save_steps: 2000
+  save_total_limit: 1
+  logging_steps: 50
+
+evaluation:
+  num_beams: 5
+  repetition_penalty: null  # Not used (standard for OCR)
+  no_repeat_ngram_size: null  # Not used (standard for OCR)
+
+hardware:
+  gpu: "NVIDIA GeForce RTX 5060 (8GB VRAM)"
+  dataloader_num_workers: 0  # Windows compatibility
+  dataloader_pin_memory: true

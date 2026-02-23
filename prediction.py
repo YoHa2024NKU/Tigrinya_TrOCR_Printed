@@ -5,7 +5,7 @@ from tqdm import tqdm
 import pandas as pd
 import os
 import json
-import prediction  # huggingface evaluate library
+import evaluate  # huggingface evaluate library
 
 def main():
     # --- CONFIGURATION ---
@@ -36,8 +36,8 @@ def main():
     print(f"   Found {len(df)} test samples.")
 
     # 3. Define Metrics
-    cer_metric = prediction.load("cer")
-    wer_metric = prediction.load("wer")
+    cer_metric = evaluate.load("cer")
+    wer_metric = evaluate.load("wer")
 
     predictions = []
     references = []
@@ -56,10 +56,10 @@ def main():
                     pixel_values, 
                     max_length=128,
                     num_beams=5,             # Increase beams slightly
-                    repetition_penalty=1.2,  # Prevents it from getting stuck/skipping
-                    length_penalty=1.0,      # Encourages it not to cut words short
-                    early_stopping=True,
-                    no_repeat_ngram_size=3
+                    #repetition_penalty=1.2,  # Prevents it from getting stuck/skipping
+                    #length_penalty=1.0,      # Encourages it not to cut words short
+                    #early_stopping=True,
+                    #no_repeat_ngram_size=3
                 )
             
             pred_text = processor.batch_decode(generated_ids, skip_special_tokens=True)[0]

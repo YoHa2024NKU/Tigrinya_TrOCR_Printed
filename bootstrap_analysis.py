@@ -62,9 +62,9 @@ def load_or_run_inference():
                     pixel_values,
                     max_length=128,
                     num_beams=5,
-                    repetition_penalty=1.2,
-                    no_repeat_ngram_size=3,
-                    early_stopping=True
+                    #repetition_penalty=1.2,
+                    #no_repeat_ngram_size=3,
+                    #early_stopping=True
                 )
             
             pred_text = processor.batch_decode(generated_ids, skip_special_tokens=True)[0]

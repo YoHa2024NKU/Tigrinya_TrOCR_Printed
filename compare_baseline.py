@@ -38,8 +38,8 @@ def evaluate_model(model_name_or_path, df, desc):
             pixel_values = processor(images=image, return_tensors="pt").pixel_values.to(DEVICE)
             
             with torch.no_grad():
-                # Greedy search is fine for baseline comparison speed
-                generated_ids = model.generate(pixel_values, max_length=128)
+                
+                generated_ids = model.generate(pixel_values, max_length=128, num_beams=5)
             
             pred = processor.batch_decode(generated_ids, skip_special_tokens=True)[0]
             preds.append(pred)
