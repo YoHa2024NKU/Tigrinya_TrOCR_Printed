@@ -15,7 +15,7 @@
 
 A fine-tuned [TrOCR](https://-----) model for **printed Tigrinya line-level text recognition**, achieving **0.20% CER**, **0.77% WER**, and **97.44% exact match accuracy** on a held-out test set of 5,000 samples.
 
-The Tigrinya writing system uses the Ge'ez script (fidel) be0 an abugida comprising 33 base consonants be8 7 vowel orders (231 core syllographs), 4 labialized consonant groups, and 8 punctuation marks.
+The Tigrinya writing system uses the Ge'ez script (fidel) is an abugida comprising 33 base consonants, 7 vowel orders (231 core syllographs), 4 labialized consonant groups, and 8 punctuation marks.
 
 ## Results
 

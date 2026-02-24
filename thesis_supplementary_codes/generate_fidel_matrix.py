@@ -73,7 +73,7 @@ def generate_full_tigrinya_matrix():
     # =========================================================
     # 3. FONTS
     # =========================================================
-    font_path_fidel = r"D:\Tigrinya_OCR_Project\nyala.ttf"
+    font_path_fidel = r"D:/Tigrinya_OCR_Project/nyala.ttf"
     font_path_latin = "C:/Windows/Fonts/times.ttf"
 
     try:

@@ -1,6 +1,6 @@
 # tigrinya-trocr-research
 
-# TigrinyaTrOCR: Adapting TrOCR for Tigrinya: Transfer Learning Strategies for Low-Resource Optical Character Recognition of Ge'ez Script be0be9be6
+# TigrinyaTrOCR: Adapting TrOCR for Tigrinya: Transfer Learning Strategies for Low-Resource Optical Character Recognition of Ge'ez Script 
 
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.6.1-ee4c2c.svg)](https://pytorch.org/)
 [![License](https://img.shields.io/badge/License-CC%20BY%204.0-blue.svg)](LICENSE)
@@ -14,13 +14,13 @@
 
 ---
 
-## be0be4 Abstract
+##  Abstract
 
 **TigrinyaTrOCR** is a fine-tuned Transformer-based OCR model designed for the **Tigrinya language** (Ge'ez script). It utilizes the **Microsoft TrOCR** architecture (Vision Transformer Encoder + GPT-2 Decoder) to achieve state-of-the-art results on printed Tigrinya text.
 
 By fine-tuning [`microsoft/trocr-base-handwritten`](https://huggingface.co/microsoft/trocr-base-handwritten) on 10,000 training samples from the GLOCR dataset, this model achieves **0.20% CER** and **97.44% exact match accuracy** on a held-out test set of 5,000 samples.
 
-### be0be0 Key Features
+###  Key Features
 
 *   **Transfer Learning:** Fine-tuned from a pre-trained handwritten TrOCR model, adapted for printed Tigrinya text.
 *   **Hardware Optimized:** Optimized for **NVIDIA RTX 50-series (Blackwell)** GPUs using Gradient Accumulation (Effective Batch Size 8) and Mixed Precision (FP16).
@@ -29,7 +29,7 @@ By fine-tuning [`microsoft/trocr-base-handwritten`](https://huggingface.co/micro
 
 ---
 
-## be0be4 Benchmark Results
+##  Benchmark Results
 
 Evaluation was conducted on the full **Tigrinya Test Set (N=5,000)**.
 
@@ -47,7 +47,7 @@ Evaluation was conducted on the full **Tigrinya Test Set (N=5,000)**.
 
 ---
 
-## be0be7be0 Installation
+##  Installation
 
 **Prerequisites:** Python 3.10+ and an NVIDIA GPU (CUDA 12.x required).
 
@@ -75,7 +75,7 @@ pip install -r requirements.txt
 
 ---
 
-## be2 Usage
+##  Usage
 
 ### 1. Training
 
@@ -116,28 +116,29 @@ python app.py
 
 ---
 
-## be0be4 Project Structure
+## Project Structure
 
 ```text
 TigrinyaTrOCR/
-be2be4be4 config/             # Hyperparameter configurations (YAML)
-be2be4be4 data/               # Dataset (Train/Test/Dev TSV files)
-be2be4be4 outputs/            # Trained model checkpoints
-be2be4be4 src/                # Source Code
-be2   be2be4be4 data.py         # Dataset loading & Robust error handling
-be2   be2be4be4 model.py        # Tokenizer extension & Architecture
-be2   be2be4be4 trainer.py      # Optimized Trainer Logic
-be2   be0be4be4 utils.py        # Logging & Seeding
-be2be4be4 app.py              # Flask Web Application
-be2be4be4 train.py            # Main Training Entry Point
-be2be4be4 predict.py          # Testing & Metrics Calculation
-be2be4be4 visualize.py        # Graph Generation
-be0be4be4 requirements.txt    # Dependency List
+TigrinyaTrOCR/
+├── config/             # Hyperparameter configurations (YAML)
+├── data/               # Dataset (Train/Test/Dev TSV files)
+├── outputs/            # Trained model checkpoints
+├── src/                # Source Code
+│   ├── data.py         # Dataset loading & Robust error handling
+│   ├── model.py        # Tokenizer extension & Architecture
+│   ├── trainer.py      # Optimized Trainer Logic
+│   └── utils.py        # Logging & Seeding
+├── app.py              # Flask Web Application
+├── train.py            # Main Training Entry Point
+├── evaluate.py         # Testing & Metrics Calculation
+├── visualize.py        # Graph Generation
+└── requirements.txt    # Dependency List
 ```
 
 ---
 
-## be0be4 Citation
+## Citation
 
 If you use this code or methodology, please cite:
 
@@ -151,7 +152,7 @@ If you use this code or methodology, please cite:
 }
 ```
 
-## be0be0 Acknowledgements
+##  Acknowledgements
 
 *   **Ministry of Commerce (MOFCOM), PRC:** For scholarship support.
 *   **Nankai University:** For academic supervision and resources.

@@ -1,75 +1,68 @@
+import matplotlib
+matplotlib.use('Agg')  # Non-interactive backend, avoids GUI hang
+
 import matplotlib.pyplot as plt
-import pandas as pd
 import seaborn as sns
-import numpy as np
-from matplotlib import font_manager
-from PIL import Image
 import os
 import json
 
 # --- CONFIGURATION ---
-OUTPUT_DIR = "thesis_visuals"
-FONT_PATH = "C:/Windows/Fonts/Nyala.ttf"     # Standard Windows Ethiopic Font
+OUTPUT_DIR = r"thesis_visuals"
+METRICS_PATH = r"D:\\Tigrinya_OCR_Project\\thesis_metrics.json"
 
 if not os.path.exists(OUTPUT_DIR):
     os.makedirs(OUTPUT_DIR)
 
-# 1. SETUP FONT
-try:
-    prop = font_manager.FontProperties(fname=FONT_PATH)
-    print(f"✅ Loaded font: {prop.get_name()}")
-except:
-    print("⚠️ Font not found. Visualizations might show boxes for Ethiopic text.")
-    prop = None
+# Set seaborn style
+sns.set_theme(style="whitegrid", font_scale=1.2)
 
-# =============================================================================
-# 1. PERFORMANCE METRICS (Bar Chart)
-# =============================================================================
+
 def plot_performance():
-    print("📊 Generating Performance Chart...")
-    
-    # Load latest evaluation metrics
-    metrics_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'thesis_metrics.json')
-    if not os.path.exists(metrics_path):
-        metrics_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'thesis_metrics.json')
-    if not os.path.exists(metrics_path):
-        raise FileNotFoundError(f"Could not find thesis_metrics.json. Checked: {metrics_path}")
-    with open(metrics_path, "r") as f:
+    print("Generating Performance Chart...")
+
+    if not os.path.exists(METRICS_PATH):
+        raise FileNotFoundError(f"Could not find thesis_metrics.json at: {METRICS_PATH}")
+
+    with open(METRICS_PATH, "r") as f:
         results = json.load(f)
 
     # Convert to percentages
-    accuracy = results["Accuracy"] * 100
-    wer = results["WER"] * 100
-    cer = results["CER"] * 100
+    accuracy = round(results["Accuracy"] * 100, 2)
+    wer = round(results["WER"] * 100, 2)
+    cer = round(results["CER"] * 100, 2)
 
-    metrics = {
-        'Exact Match\nAccuracy': round(accuracy, 2),
-        'Word Error Rate\n(WER)': round(wer, 2),
-        'Char Error Rate\n(CER)': round(cer, 2)
-    }
+    metrics = ['Exact Match\nAccuracy', 'Word Error Rate\n(WER)', 'Char Error Rate\n(CER)']
+    values = [accuracy, wer, cer]
+    colors = ['#2ecc71', '#f1c40f', '#e74c3c']
 
-    names = list(metrics.keys())
-    values = list(metrics.values())
-    colors = ['#2ecc71', '#f1c40f', '#e74c3c'] # Green, Yellow, Red
+    fig, ax = plt.subplots(figsize=(9, 6))
+    bars = sns.barplot(x=metrics, y=values, palette=colors, edgecolor='black', ax=ax)
 
-    plt.figure(figsize=(9, 6))
-    bars = plt.bar(names, values, color=colors, edgecolor='black', alpha=0.8, width=0.6)
+    # Add values on top of bars
+    for i, (val, bar) in enumerate(zip(values, ax.patches)):
+        ax.text(bar.get_x() + bar.get_width() / 2., bar.get_height() + 1,
+                f'{val}%', ha='center', va='bottom', fontsize=12, weight='bold')
 
-    # Add values on top
-    for bar in bars:
-        height = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width()/2., height + 1,
-                 f'{height}%', ha='center', va='bottom', fontsize=12, weight='bold')
+    ax.set_title(f"Final Model Performance on Test Set (N={results['Total Samples']})",
+                 fontsize=14, weight='bold', pad=20)
+    ax.set_ylabel("Percentage (%)", fontsize=12)
+    ax.set_xlabel("")
+    ax.set_ylim(0, 110)
 
-    plt.title(f"Final Model Performance on Test Set (N={results['Total Samples']})", fontsize=14, weight='bold', pad=20)
-    plt.ylabel("Percentage (%)", fontsize=12)
-    plt.ylim(0, 110) # Give space for text
+    fig.tight_layout()
+    output_path = os.path.join(OUTPUT_DIR, "figure_performance_metrics.png")
+    fig.savefig(output_path, dpi=300)
+    plt.close(fig)
 
-    # Save
-    plt.tight_layout()
-    plt.savefig(f"{OUTPUT_DIR}/figure_performance_metrics.png", dpi=300)
-    plt.close()
+    # Open the saved image
+    try:
+        os.startfile(output_path)
+    except AttributeError:
+        pass
+
+    print(f"Saved: {output_path}")
+
 
 if __name__ == "__main__":
     plot_performance()
-    print(f"\n✅ Performance metrics visualization saved to '{OUTPUT_DIR}/'")
+    print(f"\nPerformance metrics visualization saved to '{OUTPUT_DIR}/'")

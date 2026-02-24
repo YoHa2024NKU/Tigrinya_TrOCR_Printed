@@ -69,7 +69,7 @@ def main():
     # 2. Evaluate Vanilla (The "Before")
     v_cer, v_wer, v_acc = evaluate_model(VANILLA_MODEL, df, "Vanilla TrOCR")
     
-    # 3. Evaluate Ours (The "After")
+    # 3. Evaluate Ours (The "Word-Aware Fine-Tuned Model")
     m_cer, m_wer, m_acc = evaluate_model(MY_MODEL_PATH, df, "TigrinyaTrOCR (Ours)")
 
     # 4. Print Table

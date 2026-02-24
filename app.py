@@ -137,7 +137,7 @@ HTML_TEMPLATE = """
 <body>
 
     <div class="main-card">
-        <h1>🇪🇷 Tigrinya OCR Validator</h1>
+        <h1>Tigrinya OCR Validator</h1>
         <p>Upload images from your dataset to validate.</p>
         
         <div style="position: relative; display: inline-block;">

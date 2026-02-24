@@ -19,7 +19,7 @@ FONT_PATH = "C:/Windows/Fonts/nyala.ttf"
 if not os.path.exists(OUTPUT_DIR): os.makedirs(OUTPUT_DIR)
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
-# --- ETHIOPIC LINGUISTIC MAPS (304+ Characters) ---
+# --- Ge'ez LINGUISTIC MAPS (304+ Characters) ---
 FAMILIES = [
     "ሀሁሂሃሄህሆ", "ለሉሊላሌልሎሏ", "ሐሑሒሓሔሕሖሗ", "መሙሚማሜምሞሟ", "ሠሡሢሣሤሥሦሧ", 
     "ረሩሪራሬርሮሯ", "ሰሱሲሳሴስሶሷ", "ሸሹሺሻሼሽሾሿ", "ቀቁቂቃቄቅቆቈቊቋቌቍ", "በቡቢባቤብቦቧ", 

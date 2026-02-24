@@ -1,3 +1,4 @@
+# This script evaluates the Tokenized trained model on the test set and computes CER, WER, and Accuracy.
 import torch
 from transformers import VisionEncoderDecoderModel, TrOCRProcessor
 from PIL import Image
