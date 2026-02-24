@@ -78,20 +78,6 @@ This project uses the **GLOCR (GeezLab OCR Dataset)**, specifically 20,000 sampl
 python train.py
 ```
 
-Training hyperparameters can be configured in `config/`. Default settings:
-
-| Hyperparameter | Value |
-|----------------|-------|
-| Optimizer | AdamW |
-| Learning rate | 4 be8 10be7be5 |
-| LR scheduler | Linear decay to 0 |
-| Epochs | 10 |
-| Per-device batch size | 2 |
-| Gradient accumulation steps | 4 |
-| Effective batch size | 8 |
-| Mixed precision | FP16 |
-| Training duration | ~2h 20m |
-
 ### Evaluation
 
 ```bash
@@ -181,4 +167,3 @@ Nankai University
 </div>
 ````
 
-Replace the `<!-- TODO -->` citation block once your thesis is published. The badges at the top will link directly to your Hugging Face model and show your license/Python/PyTorch versions.

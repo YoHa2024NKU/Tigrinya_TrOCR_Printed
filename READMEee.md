@@ -1,59 +1,65 @@
 # tigrinya-trocr-research
-# TigrinyaTrOCR: Adapting TrOCR for Tigrinya: Transfer Learning Strategies for Low-Resource Optical Character Recognition of Ge'ez Script 🇪🇷
 
-[![PyTorch](https://img.shields.io/badge/PyTorch-2.6%2B_(Nightly)-ee4c2c.svg)](https://pytorch.org/)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Status](https://img.shields.io/badge/State--of--the--Art-94.42%25_Accuracy-success)](outputs/fast_model)
+# TigrinyaTrOCR: Adapting TrOCR for Tigrinya: Transfer Learning Strategies for Low-Resource Optical Character Recognition of Ge'ez Script be0be9be6
+
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.6.1-ee4c2c.svg)](https://pytorch.org/)
+[![License](https://img.shields.io/badge/License-CC%20BY%204.0-blue.svg)](LICENSE)
+[![Status](https://img.shields.io/badge/State--of--the--Art-97.44%25_Accuracy-success)](outputs/fast_model)
 [![Hardware](https://img.shields.io/badge/Hardware-RTX_5060_(Blackwell)-76b900.svg)](https://www.nvidia.com/)
 
 > **Master's Thesis Project**  
-> **Author:** Medhanie Yonatan Haile  
+> **Author:** Yonatan Haile Medhanie  
 > **Institution:** Nankai University, College of Software  
 > **Task:** Optical Character Recognition (OCR) for Low-Resource Languages
 
 ---
 
-## 📌 Abstract
-**TigrinyaTrOCR** is a fine-tuned Transformer-based OCR model designed for the **Tigrinya language** (Ethiopic script). It utilizes the **Microsoft TrOCR** architecture (Vision Transformer Encoder + RoBERTa Decoder) to achieve state-of-the-art results on printed Tigrinya text.
+## be0be4 Abstract
 
-The project identifies and resolves a critical **tokenization mismatch** between pre-trained English BPE tokenizers and disjoint Ethiopic characters. By introducing a novel **"Word-Aware Loss Weighting"** strategy, this model overcomes systematic "character elision" errors, improving exact match accuracy from near-zero to **94.42%**.
+**TigrinyaTrOCR** is a fine-tuned Transformer-based OCR model designed for the **Tigrinya language** (Ge'ez script). It utilizes the **Microsoft TrOCR** architecture (Vision Transformer Encoder + GPT-2 Decoder) to achieve state-of-the-art results on printed Tigrinya text.
 
-### 🚀 Key Features
-*   **Word-Aware Loss:** Custom training objective that weights word boundaries by **2.0x** to fix tokenizer conflicts.
+By fine-tuning [`microsoft/trocr-base-handwritten`](https://huggingface.co/microsoft/trocr-base-handwritten) on 10,000 training samples from the GLOCR dataset, this model achieves **0.20% CER** and **97.44% exact match accuracy** on a held-out test set of 5,000 samples.
+
+### be0be0 Key Features
+
+*   **Transfer Learning:** Fine-tuned from a pre-trained handwritten TrOCR model, adapted for printed Tigrinya text.
 *   **Hardware Optimized:** Optimized for **NVIDIA RTX 50-series (Blackwell)** GPUs using Gradient Accumulation (Effective Batch Size 8) and Mixed Precision (FP16).
 *   **Interactive Demo:** Includes a Flask-based Web Interface for batch processing and real-time validation.
-*   **Extended Vocabulary:** Support for 230+ Ethiopic characters including numerals and punctuation.
+*   **Extended Vocabulary:** Support for 231+ Ge'ez characters including labialized forms and punctuation.
 
 ---
 
-## 📊 Benchmark Results
+## be0be4 Benchmark Results
 
 Evaluation was conducted on the full **Tigrinya Test Set (N=5,000)**.
 
-| Training Method | CER (%) | WER (%) | Accuracy (%) | Status |
-| :--- | :---: | :---: | :---: | :--- |
-| **Vanilla Baseline** (Zero-Shot) | 118.17 | 112.06 | 0.00 | Failed |
-| **Standard Fine-Tuning** | 20.17 | 78.95 | 0.02 | Failed (Eating Letters) |
-| **Word-Aware Loss (Ours)** | **0.41** | **1.66** | **94.42** | **State-of-the-Art** |
+| Metric | Value |
+| :--- | :---: |
+| **Character Error Rate (CER)** | **0.20%** |
+| **Word Error Rate (WER)** | **0.77%** |
+| **Exact Match Accuracy** | **97.44%** |
+| **Perfect Transcriptions** | **4,872 / 5,000** |
 
-> *Note: Standard fine-tuning achieved decent character recognition (20% CER) but failed completely on exact sentence matching due to skipping the first letter of every word. The proposed Word-Aware Loss rectified this structural flaw.*
+> *Of the 5,000 test samples, 4,872 (97.44%) were transcribed perfectly. The remaining 128 samples (2.56%) contained at least one character-level error. The most frequent failures involve numerals and mixed-script text, accounting for 55 of the 128 error samples.*
 
 ![Training Loss Curve](images/training_loss_curve.png)
 *(Figure: Training convergence over 12,500 steps)*
 
 ---
 
-## 🛠️ Installation
+## be0be7be0 Installation
 
 **Prerequisites:** Python 3.10+ and an NVIDIA GPU (CUDA 12.x required).
 
 ### 1. Clone Repository
+
 ```bash
-git clone https://github.com/medhanie-yh/TigrinyaTrOCR.git
-cd TigrinyaTrOCR
+git clone https://github.com/YoHa2024NKU/tigrinya-trocr-research.git
+cd tigrinya-trocr-research
 ```
 
 ### 2. Install PyTorch (Critical)
+
 **Note:** For **RTX 5060 / 50-series** GPUs, you must use PyTorch Nightly (CUDA 12.8) as Stable versions are incompatible with the Blackwell architecture.
 
 ```bash
@@ -62,31 +68,36 @@ pip install --pre torch torchvision torchaudio --index-url https://download.pyto
 ```
 
 ### 3. Install Dependencies
+
 ```bash
 pip install -r requirements.txt
 ```
 
 ---
 
-## ⚡ Usage
+## be2 Usage
 
 ### 1. Training
-Run the optimized training pipeline. This uses **Batch Size 2** with **Gradient Accumulation 4** to fit on 8GB VRAM while mathematically simulating Batch Size 8.
+
+Run the training pipeline. This uses **Batch Size 2** with **Gradient Accumulation 4** to fit on 8GB VRAM while mathematically simulating Batch Size 8.
 
 ```bash
 python train.py
 ```
+
 *   **Output:** Model weights saved to `outputs/fast_model/`.
-*   **Time:** Approx. 2.5 hours on RTX 5060.
+*   **Time:** Approx. 2h 20m on RTX 5060.
 
 ### 2. Evaluation
+
 Generate CER, WER, and Accuracy metrics on the test set.
 
 ```bash
-python prediction.py
+python predict.py
 ```
 
 ### 3. Visualization
+
 Generate training loss curves and error distribution charts for the thesis.
 
 ```bash
@@ -94,52 +105,54 @@ python visualize.py
 ```
 
 ### 4. Web Interface (Demo)
+
 Launch the local web app to test images. Features **Batch Upload** and **Green/Red Validation**.
 
 ```bash
 python app.py
 ```
+
 *   Open your browser at: `http://localhost:5000`
 
 ---
 
-## 📂 Project Structure
+## be0be4 Project Structure
 
 ```text
 TigrinyaTrOCR/
-├── config/             # Hyperparameter configurations (YAML)
-├── data/               # Dataset (Train/Test/Dev TSV files)
-├── outputs/            # Trained model checkpoints
-├── src/                # Source Code
-│   ├── data.py         # Dataset loading & Robust error handling
-│   ├── model.py        # Tokenizer extension & Architecture
-│   ├── trainer.py      # Optimized Trainer Logic
-│   └── utils.py        # Logging & Seeding
-├── app.py              # Flask Web Application
-├── train.py            # Main Training Entry Point
-├── evaluate.py         # Testing & Metrics Calculation
-├── visualize.py        # Graph Generation
-└── requirements.txt    # Dependency List
+be2be4be4 config/             # Hyperparameter configurations (YAML)
+be2be4be4 data/               # Dataset (Train/Test/Dev TSV files)
+be2be4be4 outputs/            # Trained model checkpoints
+be2be4be4 src/                # Source Code
+be2   be2be4be4 data.py         # Dataset loading & Robust error handling
+be2   be2be4be4 model.py        # Tokenizer extension & Architecture
+be2   be2be4be4 trainer.py      # Optimized Trainer Logic
+be2   be0be4be4 utils.py        # Logging & Seeding
+be2be4be4 app.py              # Flask Web Application
+be2be4be4 train.py            # Main Training Entry Point
+be2be4be4 predict.py          # Testing & Metrics Calculation
+be2be4be4 visualize.py        # Graph Generation
+be0be4be4 requirements.txt    # Dependency List
 ```
 
 ---
 
-## 📜 Citation
+## be0be4 Citation
 
-If you use this code or methodology, please cite the thesis:
+If you use this code or methodology, please cite:
 
 ```bibtex
-@mastersthesis{Haile2026TigrinyaTrOCR,
-  author  = {Medhanie Yonatan Haile},
-  title   = {End-to-End Optical Character Recognition for Low-Resource Ethiopic Script using Transformers},
+@mastersthesis{Medhanie2026TigrinyaTrOCR,
+  author  = {Yonatan Haile Medhanie},
+  title   = {Adapting TrOCR for Tigrinya: Transfer Learning Strategies for Low-Resource Optical Character Recognition of Ge'ez Script},
   school  = {Nankai University},
   year    = {2026},
   address = {Tianjin, China}
 }
 ```
 
-## 🙏 Acknowledgements
+## be0be0 Acknowledgements
+
 *   **Ministry of Commerce (MOFCOM), PRC:** For scholarship support.
 *   **Nankai University:** For academic supervision and resources.
 *   **Hugging Face:** For the Transformers library.
-```
