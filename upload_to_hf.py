@@ -2,7 +2,7 @@ from huggingface_hub import HfApi
 
 # --- YOUR DETAILS HERE ---
 MY_TOKEN = "     "  # Paste your token here
-REPO_ID = "Yonatanhaile2026/tigrinya-trocr-model"  # Your Username / Model Name
+REPO_ID = "Yonatanhaile2026/tigrinya-trocr-printed-model"  # Your Username / Model Name
 LOCAL_FOLDER = "outputs/fast_model" # The folder on your PC where the heavy files are
 # -------------------------
 
@@ -19,4 +19,4 @@ api.upload_folder(
     ignore_patterns=["checkpoint-*"]  # <--- ADD THIS LINE
 )
 
-print("Upload Complete! Check your private repo.")
+print("Upload Completed! Check your private repo.")

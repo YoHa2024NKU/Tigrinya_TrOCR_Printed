@@ -1,111 +1,35 @@
-# tigrinya-trocr-research
-# TigrinyaTrOCR: End-to-End OCR for Ethiopic Script 🇪🇷
+﻿<div align="center">
 
-[![PyTorch](https://img.shields.io/badge/PyTorch-2.6%2B_(Nightly)-ee4c2c.svg)](https://pytorch.org/)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Status](https://img.shields.io/badge/State--of--the--Art-94.42%25_Accuracy-success)](outputs/fast_model)
-[![Hardware](https://img.shields.io/badge/Hardware-RTX_5060_(Blackwell)-76b900.svg)](https://www.nvidia.com/)
+# Tigrinya TrOCR
 
-> **Master's Thesis Project**  
-> **Author:** Medhanie Yonatan Haile  
-> **Institution:** Nankai University, College of Software  
-> **Task:** Optical Character Recognition (OCR) for Low-Resource Languages
+**Adapting TrOCR for Tigrinya: Transfer Learning Strategies for Low-Resource Optical Character Recognition of Ge'ez Script**
 
----
+[![Model on HF](https://img.shields.io/badge/%F0%9F%A4%97%20Model-Hugging%20Face-yellow)](https://huggingface.co/Yonatanhaile2026/tigrinya-trocr-printed-model)
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+[![Python 3.10](https://img.shields.io/badge/Python-3.10-blue.svg)](https://www.python.org/)
+[![PyTorch 2.6](https://img.shields.io/badge/PyTorch-2.6-red.svg)](https://pytorch.org/)
 
-## 📌 Abstract
-**TigrinyaTrOCR** is a fine-tuned Transformer-based OCR model designed for the **Tigrinya language** (Ethiopic script). It utilizes the **Microsoft TrOCR** architecture (Vision Transformer Encoder + RoBERTa Decoder) to achieve state-of-the-art results on printed Tigrinya text.
-
-The project identifies and resolves a critical **tokenization mismatch** between pre-trained English BPE tokenizers and disjoint Ethiopic characters. By introducing a novel **"Word-Aware Loss Weighting"** strategy, this model overcomes systematic "character elision" errors, improving exact match accuracy from near-zero to **94.42%**.
-
-### 🚀 Key Features
-*   **Word-Aware Loss:** Custom training objective that weights word boundaries by **2.0x** to fix tokenizer conflicts.
-*   **Hardware Optimized:** Optimized for **NVIDIA RTX 50-series (Blackwell)** GPUs using Gradient Accumulation (Effective Batch Size 8) and Mixed Precision (FP16).
-*   **Interactive Demo:** Includes a Flask-based Web Interface for batch processing and real-time validation.
-*   **Extended Vocabulary:** Support for 230+ Ethiopic characters including numerals and punctuation.
+</div>
 
 ---
 
-## 📊 Benchmark Results
+A fine-tuned [TrOCR](https://-----) model for **printed Tigrinya line-level text recognition**, achieving **0.20% CER**, **0.77% WER**, and **97.44% exact match accuracy** on a held-out test set of 5,000 samples.
 
-Evaluation was conducted on the full **Tigrinya Test Set (N=5,000)**.
+The Tigrinya writing system uses the Ge'ez script (fidel) be0 an abugida comprising 33 base consonants be8 7 vowel orders (231 core syllographs), 4 labialized consonant groups, and 8 punctuation marks.
 
-| Training Method | CER (%) | WER (%) | Accuracy (%) | Status |
-| :--- | :---: | :---: | :---: | :--- |
-| **Vanilla Baseline** (Zero-Shot) | 118.17 | 112.06 | 0.00 | Failed |
-| **Standard Fine-Tuning** | 20.17 | 78.95 | 0.02 | Failed (Eating Letters) |
-| **Word-Aware Loss (Ours)** | **0.41** | **1.66** | **94.42** | **State-of-the-Art** |
+## Results
 
-> *Note: Standard fine-tuning achieved decent character recognition (20% CER) but failed completely on exact sentence matching due to skipping the first letter of every word. The proposed Word-Aware Loss rectified this structural flaw.*
+| Metric | Value |
+|--------|-------|
+| Character Error Rate (CER) | 0.20% |
+| Word Error Rate (WER) | 0.77% |
+| Exact Match Accuracy | 97.44% |
+| Perfect Transcriptions | 4,872 / 5,000 |
 
-![Training Loss Curve](images/training_loss_curve.png)
-*(Figure: Training convergence over 12,500 steps)*
+## Project Structure
 
----
-
-## 🛠️ Installation
-
-**Prerequisites:** Python 3.10+ and an NVIDIA GPU (CUDA 12.x required).
-
-### 1. Clone Repository
-```bash
-git clone https://github.com/medhanie-yh/TigrinyaTrOCR.git
-cd TigrinyaTrOCR
 ```
-
-### 2. Install PyTorch (Critical)
-**Note:** For **RTX 5060 / 50-series** GPUs, you must use PyTorch Nightly (CUDA 12.8) as Stable versions are incompatible with the Blackwell architecture.
-
-```bash
-# Windows / Linux
-pip install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/cu124
-```
-
-### 3. Install Dependencies
-```bash
-pip install -r requirements.txt
-```
-
----
-
-## ⚡ Usage
-
-### 1. Training
-Run the optimized training pipeline. This uses **Batch Size 2** with **Gradient Accumulation 4** to fit on 8GB VRAM while mathematically simulating Batch Size 8.
-
-```bash
-python train.py
-```
-*   **Output:** Model weights saved to `outputs/fast_model/`.
-*   **Time:** Approx. 2.5 hours on RTX 5060.
-
-### 2. Evaluation
-Generate CER, WER, and Accuracy metrics on the test set.
-
-```bash
-python prediction.py
-```
-
-### 3. Visualization
-Generate training loss curves and error distribution charts for the thesis.
-
-```bash
-python visualize.py
-```
-
-### 4. Web Interface (Demo)
-Launch the local web app to test images. Features **Batch Upload** and **Green/Red Validation**.
-
-```bash
-python app.py
-```
-*   Open your browser at: `http://localhost:5000`
-
----
-
-## 📂 Project Structure
-
-```text
+TigrinyaTrOCR/
 TigrinyaTrOCR/
 ├── config/             # Hyperparameter configurations (YAML)
 ├── data/               # Dataset (Train/Test/Dev TSV files)
@@ -122,24 +46,139 @@ TigrinyaTrOCR/
 └── requirements.txt    # Dependency List
 ```
 
----
+## Getting Started
 
-## 📜 Citation
+### Prerequisites
 
-If you use this code or methodology, please cite the thesis:
+- Python 3.10+
+- CUDA-compatible GPU (8 GB+ VRAM recommended)
+- CUDA Toolkit 12.x
+
+### Installation
+
+```bash
+git clone https://github.com/YoHa2024NKU/tigrinya-trocr-research.git
+cd tigrinya-trocr-research
+pip install -r requirements.txt
+```
+
+### Data Preparation
+
+This project uses the **GLOCR (GeezLab OCR Dataset)**, specifically 20,000 samples from the Tigrinya News text-lines portion. Place your TSV files in the `data/` directory:
+
+| Split | Samples | Proportion |
+|-------|---------|------------|
+| Training | 10,000 | 50% |
+| Validation | 5,000 | 25% |
+| Test | 5,000 | 25% |
+
+### Training
+
+```bash
+python train.py
+```
+
+Training hyperparameters can be configured in `config/`. Default settings:
+
+| Hyperparameter | Value |
+|----------------|-------|
+| Optimizer | AdamW |
+| Learning rate | 4 be8 10be7be5 |
+| LR scheduler | Linear decay to 0 |
+| Epochs | 10 |
+| Per-device batch size | 2 |
+| Gradient accumulation steps | 4 |
+| Effective batch size | 8 |
+| Mixed precision | FP16 |
+| Training duration | ~2h 20m |
+
+### Evaluation
+
+```bash
+python predict.py
+```
+
+This runs inference on the held-out test set and reports CER, WER, and exact match accuracy.
+
+### Web Demo
+
+```bash
+python app.py
+```
+
+Launches a Flask web application for interactive Tigrinya OCR.
+
+### Using the Pre-trained Model
+
+The fine-tuned model is available on Hugging Face:
+
+```python
+from transformers import TrOCRProcessor, VisionEncoderDecoderModel
+from PIL import Image
+
+processor = TrOCRProcessor.from_pretrained("Yonatanhaile2026/tigrinya-trocr-printed-model")
+model = VisionEncoderDecoderModel.from_pretrained("Yonatanhaile2026/tigrinya-trocr-printed-model")
+
+image = Image.open("your_tigrinya_image.png").convert("RGB")
+pixel_values = processor(images=image, return_tensors="pt").pixel_values
+
+generated_ids = model.generate(pixel_values)
+text = processor.batch_decode(generated_ids, skip_special_tokens=True)[0]
+print(text)
+```
+
+## Model Architecture
+
+TrOCR combines a **Vision Transformer (ViT)** encoder with a **GPT-2** decoder in a sequence-to-sequence framework. This project fine-tunes [`microsoft/trocr-base-handwritten`](https://huggingface.co/microsoft/trocr-base-handwritten) on printed Tigrinya text, extending the tokenizer to cover the full Ge'ez character set.
+
+## Known Limitations
+
+- **Numerals and mixed-script text** are the primary failure mode (55 of 128 error samples). The model may struggle with Arabic numerals or Latin characters embedded in Tigrinya text.
+- Fine-tuned for **printed text only**; handwritten Tigrinya performance has not been evaluated.
+- Trained on news domain text; performance on other domains (historical manuscripts, social media) may vary.
+
+## Computational Environment
+
+| Component | Specification |
+|-----------|---------------|
+| GPU | NVIDIA GeForce RTX 5060 (Laptop, 8 GB GDDR7) |
+| CPU | Intel Core i9-14900HX |
+| RAM | 32 GB |
+| OS | Windows 11 Pro 24H2 |
+| PyTorch | 2.6.1 |
+| Transformers | 4.40.0 |
+| CUDA | 12.8 |
+
+## Citation
+
+<!-- TODO: Update with published thesis/paper details -->
 
 ```bibtex
-@mastersthesis{Haile2026TigrinyaTrOCR,
-  author  = {Medhanie Yonatan Haile},
-  title   = {End-to-End Optical Character Recognition for Low-Resource Ethiopic Script using Transformers},
-  school  = {Nankai University},
-  year    = {2026},
-  address = {Tianjin, China}
+@misc{medhanie2026tigrinya-trocr,
+  author    = {Yonatan Haile Medhanie},
+  title     = {Adapting TrOCR for Tigrinya: Transfer Learning Strategies
+               for Low-Resource Optical Character Recognition of Ge'ez Script},
+  year      = {2026},
+  publisher = {GitHub},
+  url       = {https://github.com/YoHa2024NKU/tigrinya-trocr-research},
+  note      = {Master's thesis, Nankai University. [Full citation to be added upon publication.]}
 }
 ```
 
-## 🙏 Acknowledgements
-*   **Ministry of Commerce (MOFCOM), PRC:** For scholarship support.
-*   **Nankai University:** For academic supervision and resources.
-*   **Hugging Face:** For the Transformers library.
-```
+## License
+
+This project is licensed under [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/). You are free to use, adapt, and fine-tune this work for any purpose, provided you give appropriate credit.
+
+## Author
+
+**Yonatan Haile Medhanie** \
+Nankai University
+
+---
+
+<div align="center">
+<i>If you find this work useful, please star the repo and cite the paper.</i>
+</div>
+````
+
+Replace the `<!-- TODO -->` citation block once your thesis is published. The badges at the top will link directly to your Hugging Face model and show your license/Python/PyTorch versions.
