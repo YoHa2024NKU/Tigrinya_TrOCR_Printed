@@ -5,7 +5,7 @@
 **Adapting TrOCR for Tigrinya: Transfer Learning Strategies for Low-Resource Optical Character Recognition of Ge'ez Script**
 
 [![Model on HF](https://img.shields.io/badge/%F0%9F%A4%97%20Model-Hugging%20Face-yellow)](https://huggingface.co/Yonatanhaile2026/tigrinya-trocr-printed-model)
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![Python 3.10](https://img.shields.io/badge/Python-3.10-blue.svg)](https://www.python.org/)
 [![PyTorch 2.6](https://img.shields.io/badge/PyTorch-2.6-red.svg)](https://pytorch.org/)
 
@@ -13,7 +13,7 @@
 
 ---
 
-A fine-tuned [TrOCR](https://-----) model for **printed Tigrinya line-level text recognition**, achieving **0.20% CER**, **0.77% WER**, and **97.44% exact match accuracy** on a held-out test set of 5,000 samples.
+A fine-tuned [TrOCR](https://arxiv.org/abs/2109.10282) model for **printed Tigrinya line-level text recognition**, achieving **0.20% CER**, **0.77% WER**, and **97.44% exact match accuracy** on a held-out test set of 5,000 samples.
 
 The Tigrinya writing system uses the Ge'ez script (fidel) is an abugida comprising 33 base consonants, 7 vowel orders (231 core syllographs), 4 labialized consonant groups, and 8 punctuation marks.
 
@@ -137,7 +137,7 @@ This project fine-tunes [`microsoft/trocr-base-handwritten`](https://huggingface
 
 ## Citation
 
-<!-- TODO: Update with published thesis/paper details -->
+<!-- Will be Updated with published thesis/paper details -->
 
 ```bibtex
 @misc{medhanie2026tigrinya-trocr,
@@ -153,7 +153,7 @@ This project fine-tunes [`microsoft/trocr-base-handwritten`](https://huggingface
 
 ## License
 
-This project is licensed under [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/). You are free to use, adapt, and fine-tune this work for any purpose, provided you give appropriate credit.
+This project is licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0). You are free to use, modify, and distribute this work for any purpose, provided you give appropriate credit and state any changes made.
 
 ## Author
 
@@ -165,5 +165,3 @@ Nankai University
 <div align="center">
 <i>If you find this work useful, please star the repo and cite the paper.</i>
 </div>
-````
-
