@@ -115,7 +115,7 @@ print(text)
 
 ## Model Architecture
 
-TrOCR combines a **Vision Transformer (ViT)** encoder with a **GPT-2** decoder in a sequence-to-sequence framework. This project fine-tunes [`microsoft/trocr-base-handwritten`](https://huggingface.co/microsoft/trocr-base-handwritten) on printed Tigrinya text, extending the tokenizer to cover the full Ge'ez character set.
+This project fine-tunes [`microsoft/trocr-base-handwritten`](https://huggingface.co/microsoft/trocr-base-handwritten) on printed Tigrinya text, extending the tokenizer to cover the full Ge'ez character set.
 
 ## Known Limitations
 
