@@ -54,7 +54,7 @@ TigrinyaTrOCR/
 │ └── utils.py # Logging & seeding
 ├── app.py # Flask Web Application
 ├── train.py # Main training entry point
-├── evaluate.py # Testing & metrics calculation
+├── prediction.py # Testing & metrics calculation
 ├── visualize.py # Graph generation
 └── requirements.txt # Dependency list
 ```
@@ -89,7 +89,7 @@ Training completes in approximately 2 hours and 20 minutes per variant on a sing
 ### Evaluation
 
 ```bash
-python evaluate.py
+python prediction.py
 This runs inference on the held-out test set and reports CER, WER, and exact match accuracy.
 ```
 Web Demo
@@ -166,8 +166,7 @@ This project is licensed under the [Apache License 2.0](https://www.apache.org/l
 **Yonatan Haile Medhanie**
 College of Software Engineering, Nankai University
 
-**Yuanhua Ni**
-College of Artificial Intelligence, Nankai University
+
 
 ---
 
