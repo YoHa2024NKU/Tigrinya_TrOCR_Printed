@@ -136,14 +136,14 @@ Trained on news domain text; performance on other domains (historical manuscript
 Evaluation is on synthetic text-line images; real scanned documents are untested.
 
 ## Computational Environment
-Component	Specification
-GPU	NVIDIA GeForce RTX 5060 (Laptop, 8 GB GDDR7)
-CPU	Intel Core i9-14900HX
-RAM	32 GB
-OS	Windows 11 Pro 24H2
-PyTorch	2.6.1
-Transformers	4.40.0
-CUDA	12.8
+Component	Specification||
+GPU	NVIDIA GeForce RTX 5060 (Laptop, 8 GB GDDR7) //
+CPU	Intel Core i9-14900HX //
+RAM	32 GB //
+OS	Windows 11 Pro 24H2 //
+PyTorch	2.6.1 //
+Transformers	4.40.0 //
+CUDA	12.8 //
 
 Citation
 ```
