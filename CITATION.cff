@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite our paper."
+title: "Adapting TrOCR for Printed Tigrinya Text Recognition"
+authors:
+  - family-names: Medhanie
+    given-names: Yonatan Haile
+    affiliation: Nankai University
+  - family-names: Ni
+    given-names: Yuanhua
+    affiliation: Nankai University
+type: article
+url: "https://arxiv.org/abs/XXXX.XXXXX"
+repository-code: "https://github.com/YoHa2024NKU/tigrinya-trocr-research"
+year: 2026

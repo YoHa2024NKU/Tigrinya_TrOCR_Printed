@@ -1,9 +1,12 @@
+import os
 from huggingface_hub import HfApi
 
+
+
 # --- YOUR DETAILS HERE ---
-MY_TOKEN = "     "  # Paste your token here
-REPO_ID = "Yonatanhaile2026/tigrinya-trocr-printed-model"  # Your Username / Model Name
-LOCAL_FOLDER = "outputs/fast_model" # The folder on your PC where the heavy files are
+MY_TOKEN = "    "  # Paste your token here
+REPO_ID = "Yonatanhaile2026/tigrinya-trocr-printed"  # Your Username / Model Name
+LOCAL_FOLDER = "outputs/fast_model_printed" # The folder on your PC where the heavy files are
 # -------------------------
 
 api = HfApi()

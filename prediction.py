@@ -10,10 +10,11 @@ import evaluate  # huggingface evaluate library
 
 def main():
     # --- CONFIGURATION ---
-    MODEL_PATH = "outputs/fast_model"  # Where fast_train.py saved the model
+    #MODEL_PATH = "outputs/fast_model"    #(for Handwritten)
+    MODEL_PATH = "outputs/fast_model_printed"  # Where fast_train.py saved the model
     DATA_ROOT = "data"
     TEST_FILE = os.path.join(DATA_ROOT, "test", "test.tsv")
-    OUTPUT_JSON = "thesis_metrics.json"
+    OUTPUT_JSON = "thesis_metrics_printed.json"
     
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print(f"📊 Starting Evaluation on {device}...")

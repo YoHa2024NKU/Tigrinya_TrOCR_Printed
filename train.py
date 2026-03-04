@@ -131,8 +131,10 @@ def main():
 
     # --- CONFIGURATION ---
     DATA_ROOT = "data"
-    OUTPUT_DIR = "outputs/fast_model"
-    MODEL_NAME = "microsoft/trocr-base-handwritten"
+    #OUTPUT_DIR = "outputs/fast_model"      #(for Handwritten)
+    OUTPUT_DIR = "outputs/fast_model_printed"
+    #MODEL_NAME = "microsoft/trocr-base-handwritten"
+    MODEL_NAME = "microsoft/trocr-base-printed"
     
     # BATCH SETTINGS FOR RTX 5060 (8GB VRAM)
     BATCH_SIZE = 2          # Small physical batch to prevent VRAM overflow

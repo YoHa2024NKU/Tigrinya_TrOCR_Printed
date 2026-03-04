@@ -9,8 +9,10 @@ import os
 import numpy as np
 
 # --- CONFIG ---
-MY_MODEL_PATH = "outputs/fast_model"
-VANILLA_MODEL = "microsoft/trocr-base-handwritten"
+MY_MODEL_PATH = "outputs/fast_model_printed"  
+VANILLA_MODEL = "microsoft/trocr-base-printed"
+#MY_MODEL_PATH = "outputs/fast_model"                 # Where fast_train.py saved the model (for Handwritten)
+#VANILLA_MODEL = "microsoft/trocr-base-handwritten"
 DATA_ROOT = "data"
 TEST_FILE = os.path.join(DATA_ROOT, "test", "test.tsv")
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
