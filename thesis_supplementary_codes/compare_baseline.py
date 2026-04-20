@@ -11,7 +11,7 @@ import numpy as np
 # --- CONFIG ---
 #MY_MODEL_PATH = "outputs/fast_model_printed/best_model"  
 #VANILLA_MODEL = "microsoft/trocr-base-printed"
-MY_MODEL_PATH = "outputs/fast_model/best_model"                 # Where fast_train.py saved the model (for Handwritten)
+MY_MODEL_PATH = "outputs/fast_model/best_model"                 
 VANILLA_MODEL = "microsoft/trocr-base-handwritten"
 DATA_ROOT = "D:\Tigrinya_OCR_Project\data"
 TEST_FILE = os.path.join(DATA_ROOT, "test", "test.tsv")

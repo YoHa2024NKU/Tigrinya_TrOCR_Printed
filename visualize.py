@@ -1,3 +1,11 @@
+import os
+import glob
+import json
+import seaborn as sns
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.font_manager as font_manager
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 def plot_validation_loss():
     log_file = find_trainer_state(SEARCH_DIR)
     if not log_file:
@@ -27,14 +35,7 @@ def plot_validation_loss():
     plt.savefig(f"{THESIS_VISUALS_DIR}/validation_loss_curve.png", dpi=300)
     plt.close()
     print(f"✅ Validation loss curve saved as '{THESIS_VISUALS_DIR}/validation_loss_curve.png'")
-import os
-import glob
-import json
-import seaborn as sns
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.font_manager as font_manager
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+
 
 THESIS_VISUALS_DIR = "thesis_visuals"
 if not os.path.exists(THESIS_VISUALS_DIR):

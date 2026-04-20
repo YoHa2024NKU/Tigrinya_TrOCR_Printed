@@ -11,7 +11,7 @@ import evaluate  # huggingface evaluate library
 def main():
     # --- CONFIGURATION ---
     MODEL_PATH = "outputs/fast_model/best_model"    #(for Handwritten)
-    #MODEL_PATH = "outputs/fast_model_printed/best_model"  # Where fast_train.py saved the model
+    #MODEL_PATH = "outputs/fast_model_printed/best_model"  
     DATA_ROOT = "data"
     TEST_FILE = os.path.join(DATA_ROOT, "test", "test.tsv")
     OUTPUT_JSON = "thesis_metrics_printedd.json"

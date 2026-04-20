@@ -227,8 +227,8 @@ def main():
         report_to="none",
         dataloader_num_workers=0,     # Safer for Windows VRAM
         dataloader_pin_memory=True,
-        eval_strategy="steps",   # <-- Add this
-        eval_steps=2000               # <-- And this (same as save_steps is common)
+        eval_strategy="steps",   
+        eval_steps=2000               
     )
 
     # Use our Optimized Custom Trainer
