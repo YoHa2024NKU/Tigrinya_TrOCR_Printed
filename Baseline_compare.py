@@ -9,8 +9,8 @@ import os
 import numpy as np
 
 # --- CONFIG ---
-HANDWRITTEN_FINETUNED = "outputs/fast_model"
-PRINTED_FINETUNED = "outputs/fast_model_printed"
+HANDWRITTEN_FINETUNED = "outputs/fast_model/best_model"
+PRINTED_FINETUNED = "outputs/fast_model_printed/best_model"
 VANILLA_HANDWRITTEN = "microsoft/trocr-base-handwritten"
 VANILLA_PRINTED = "microsoft/trocr-base-printed"
 
@@ -125,8 +125,8 @@ def main():
     ax.bar_label(r4, padding=3, fmt='%.1f%%', fontsize=8, weight='bold')
 
     plt.tight_layout()
-    plt.savefig("baseline_comparison.png", dpi=300)
-    print("\n✅ Saved comparison chart to 'baseline_comparison.png'")
+    plt.savefig("baseline_comparison1.png", dpi=300)
+    print("\n✅ Saved comparison chart to 'baseline_comparison1.png'")
     plt.show()
 
 if __name__ == "__main__":

@@ -11,11 +11,11 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # --- CONFIGURATION ---
-MODEL_PATH = "outputs/fast_model"
+MODEL_PATH = "outputs/fast_model/best_model"
 DATA_ROOT = "data"
 TEST_FILE = os.path.join(DATA_ROOT, "test", "test.tsv")
 CACHE_FILE = "bootstrap_predictions_cache.json" # To avoid re-running GPU inference
-OUTPUT_IMAGE = "bootstrap_distributions.png"
+OUTPUT_IMAGE = "bootstrap_distributions1.png"
 
 # Bootstrap Settings 
 N_BOOTSTRAP_SAMPLES = 1000

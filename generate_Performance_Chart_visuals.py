@@ -8,8 +8,8 @@ import json
 
 # --- CONFIGURATION ---
 OUTPUT_DIR = r"thesis_visuals"
-HW_METRICS_PATH = r"D:\Tigrinya_OCR_Project\thesis_metrics.json"
-PR_METRICS_PATH = r"D:\Tigrinya_OCR_Project\thesis_metrics_printed.json"
+HW_METRICS_PATH = r"D:\Tigrinya_OCR_Project\thesis_metrics_handwritten.json"
+PR_METRICS_PATH = r"D:\Tigrinya_OCR_Project\thesis_metrics_printedd.json"
 
 if not os.path.exists(OUTPUT_DIR):
     os.makedirs(OUTPUT_DIR)

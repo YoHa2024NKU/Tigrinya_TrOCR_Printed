@@ -1,11 +1,40 @@
+def plot_validation_loss():
+    log_file = find_trainer_state(SEARCH_DIR)
+    if not log_file:
+        print("❌ Error: Could not find 'trainer_state.json'. Skipping validation loss curve.")
+        return
+    with open(log_file, 'r') as f:
+        data = json.load(f)
+    history = data.get('log_history', [])
+    steps = []
+    eval_losses = []
+    for entry in history:
+        if 'eval_loss' in entry and 'step' in entry:
+            steps.append(entry['step'])
+            eval_losses.append(entry['eval_loss'])
+    if not steps or not eval_losses:
+        print("❌ No eval_loss data found in logs.")
+        return
+    sns.set_style("whitegrid")
+    plt.figure(figsize=(12, 7))
+    plt.plot(steps, eval_losses, color='#e74c3c', linewidth=2.5, label='Validation Loss')
+    plt.title("Figure: Validation Loss Curve", fontsize=16, weight='bold', pad=20, fontproperties=nyala_prop)
+    plt.xlabel("Training Steps", fontsize=14, fontproperties=nyala_prop)
+    plt.ylabel("Validation Loss", fontsize=14, fontproperties=nyala_prop)
+    
+    plt.legend(fontsize=12)
+    plt.tight_layout()
+    plt.savefig(f"{THESIS_VISUALS_DIR}/validation_loss_curve.png", dpi=300)
+    plt.close()
+    print(f"✅ Validation loss curve saved as '{THESIS_VISUALS_DIR}/validation_loss_curve.png'")
 import os
 import glob
 import json
 import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 import matplotlib.font_manager as font_manager
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
 THESIS_VISUALS_DIR = "thesis_visuals"
 if not os.path.exists(THESIS_VISUALS_DIR):
@@ -159,6 +188,109 @@ def plot_word_length_vs_accuracy():
     plt.close()
     print(f"✅ Word length vs. accuracy plot saved as '{THESIS_VISUALS_DIR}/word_length_vs_accuracy.png'")
 
+# 6. Training Loss vs. Validation Loss Side by Side
+def plot_loss_and_val_loss_side_by_side():
+    log_file = find_trainer_state(SEARCH_DIR)
+    if not log_file:
+        print("❌ Error: Could not find 'trainer_state.json'. Skipping loss plots.")
+        return
+    with open(log_file, 'r') as f:
+        data = json.load(f)
+    history = data.get('log_history', [])
+    # Training loss
+    train_steps = []
+    train_loss = []
+    for entry in history:
+        if 'loss' in entry and 'step' in entry:
+            train_steps.append(entry['step'])
+            train_loss.append(entry['loss'])
+    # Validation loss
+    val_steps = []
+    val_loss = []
+    for entry in history:
+        if 'eval_loss' in entry and 'step' in entry:
+            val_steps.append(entry['step'])
+            val_loss.append(entry['eval_loss'])
+    # Plot
+    fig, axes = plt.subplots(1, 2, figsize=(16, 6))
+    # Training loss curve
+    axes[0].plot(train_steps, train_loss, color='#2980b9', linewidth=2.5, label='Training Loss')
+    axes[0].set_xlabel("Training Steps", fontsize=16, fontproperties=nyala_prop)
+    axes[0].set_ylabel("Cross Entropy Loss", fontsize=16, fontproperties=nyala_prop)
+    axes[0].legend(fontsize=15)
+    axes[0].tick_params(axis='both', which='major', labelsize=15)
+    # Annotate start and end with large font inside the plot
+    if train_steps and train_loss:
+        axes[0].text(train_steps[0], train_loss[0]+2, f'Start: {train_loss[0]:.2f}',
+                     fontsize=20, color='red', fontweight='bold', fontproperties=nyala_prop)
+        axes[0].text(train_steps[-1]- 800, train_loss[-1]+1.5, f'Final: {train_loss[-1]:.4f}',
+                     fontsize=20, color='green', fontweight='bold', fontproperties=nyala_prop)
+    # Validation loss curve
+    axes[1].plot(val_steps, val_loss, color='#e74c3c', linewidth=2.5, label='Validation Loss')
+    axes[1].set_xlabel("Training Steps", fontsize=16, fontproperties=nyala_prop)
+    axes[1].set_ylabel("Validation Loss", fontsize=16, fontproperties=nyala_prop)
+    axes[1].legend(fontsize=15)
+    axes[1].tick_params(axis='both', which='major', labelsize=15)
+    # Annotate start and end with large font inside the plot
+    if val_steps and val_loss:
+        axes[1].text(val_steps[0], val_loss[0]+0.02, f'Start: {val_loss[0]:.2f}',
+                     fontsize=20, color='red', fontweight='bold', fontproperties=nyala_prop)
+        axes[1].text(val_steps[-1], val_loss[-1]+0.02, f'Final: {val_loss[-1]:.2f}',
+                     fontsize=20, color='green', fontweight='bold', fontproperties=nyala_prop)
+    plt.tight_layout()
+    plt.savefig(f"{THESIS_VISUALS_DIR}/loss_and_val_loss_side_by_side.png", dpi=300)
+    plt.close()
+    print("✅ Loss and validation loss plots saved as 'loss_and_val_loss_side_by_side.png'")
+
+# 7. Training and Validation Loss in One Plot
+
+def plot_loss_and_val_loss_together():
+    log_file = find_trainer_state(SEARCH_DIR)
+    if not log_file:
+        print("❌ Error: Could not find 'trainer_state.json'. Skipping combined loss plot.")
+        return
+    with open(log_file, 'r') as f:
+        data = json.load(f)
+    history = data.get('log_history', [])
+    # Training loss
+    train_steps = []
+    train_loss = []
+    for entry in history:
+        if 'loss' in entry and 'step' in entry:
+            train_steps.append(entry['step'])
+            train_loss.append(entry['loss'])
+    # Validation loss
+    val_steps = []
+    val_loss = []
+    for entry in history:
+        if 'eval_loss' in entry and 'step' in entry:
+            val_steps.append(entry['step'])
+            val_loss.append(entry['eval_loss'])
+    # Plot
+    sns.set_style("whitegrid")
+    plt.figure(figsize=(12, 7))
+    plt.plot(train_steps, train_loss, color='#2980b9', linewidth=2.5, label='Training Loss')
+    plt.plot(val_steps, val_loss, color='#e74c3c', linewidth=2.5, label='Validation Loss')
+    plt.xlabel("Training Steps", fontsize=16, fontproperties=nyala_prop)
+    plt.ylabel("Loss", fontsize=16, fontproperties=nyala_prop)
+    plt.legend(fontsize=15, prop=nyala_prop)
+    # Annotate start and end for both curves
+    if train_steps and train_loss:
+        plt.text(train_steps[0], train_loss[0]+2, f'Start: {train_loss[0]:.2f}',
+                 fontsize=16, color='red', fontweight='bold', fontproperties=nyala_prop)
+        plt.text(train_steps[-1], train_loss[-1]+2, f'Final: {train_loss[-1]:.2f}',
+                 fontsize=16, color='green', fontweight='bold', fontproperties=nyala_prop)
+    if val_steps and val_loss:
+        plt.text(val_steps[0], val_loss[0]+0.02, f'Start: {val_loss[0]:.2f}',
+                 fontsize=16, color='red', fontweight='bold', fontproperties=nyala_prop)
+        plt.text(val_steps[-1], val_loss[-1]+0.02, f'Final: {val_loss[-1]:.2f}',
+                 fontsize=16, color='green', fontweight='bold', fontproperties=nyala_prop)
+    plt.title("Training and Validation Loss", fontsize=18, weight='bold', pad=20, fontproperties=nyala_prop)
+    plt.tight_layout()
+    plt.savefig(f"{THESIS_VISUALS_DIR}/loss_and_val_loss_together.png", dpi=300)
+    plt.close()
+    print("✅ Combined training and validation loss plot saved as 'loss_and_val_loss_together.png'")
+
 def plot_loss():
     log_file = find_trainer_state(SEARCH_DIR)
     
@@ -214,16 +346,20 @@ def plot_loss():
                  xytext=(train_steps[-1]-3000, final_loss+1.0),
                  arrowprops=dict(facecolor='green', shrink=0.05),
                  fontproperties=nyala_prop)
-
-    plt.tight_layout()
-    plt.savefig(OUTPUT_IMAGE, dpi=300)
-    print(f"✅ Loss curve saved as '{OUTPUT_IMAGE}'")
-    plt.close()
-
 if __name__ == "__main__":
+    plot_loss_and_val_loss_side_by_side()
     plot_loss()
+    plot_validation_loss()
     plot_training_accuracy()
-    plot_confusion_matrix()
-    plot_wer_vs_char_count()
+    #plot_confusion_matrix()
+    #plot_wer_vs_char_count()
     plot_cer_distribution()
-    plot_word_length_vs_accuracy()
+    #plot_word_length_vs_accuracy()
+    plot_loss_and_val_loss_side_by_side()
+    plot_loss_and_val_loss_together()
+    # plot_validation_loss()
+    # plot_training_accuracy()
+    # plot_confusion_matrix()
+    # plot_wer_vs_char_count()
+    # plot_cer_distribution()
+    # plot_word_length_vs_accuracy()

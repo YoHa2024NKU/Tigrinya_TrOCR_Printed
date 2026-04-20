@@ -9,7 +9,7 @@ import re
 app = Flask(__name__)
 
 # --- CONFIGURATION ---
-MODEL_PATH = "outputs/fast_model"
+MODEL_PATH = "outputs/fast_model/best_model"
 DATA_ROOT = "data"
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 

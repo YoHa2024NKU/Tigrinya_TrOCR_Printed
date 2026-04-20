@@ -1,0 +1,18 @@
+[33m92846e5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m Final  Updates
+[33m04f356e[m final Updates
+[33m8c71b42[m Final Updates
+[33me3419fd[m Final update Handwritten and Printed
+[33m3ec6338[m Updated Readme
+[33m3c8b2a0[m Updated Readme file
+[33mfb7ba3f[m Final Updates
+[33mc60bf4a[m Final Update
+[33m30769b5[m Updated ReadMe Files
+[33md05de23[m updated Read Me File
+[33mad8310b[m Merge branch 'main' of https://github.com/YoHa2024NKU/tigrinya-trocr-research
+[33m00bb220[m Update on Accuracy Upgraded from 94.42% to 97.44%
+[33m446e77d[m Accuracy Upgraded from 94.42% to 97.44%
+[33m883137f[m Update evaluation script from evaluate.py to prediction.py
+[33m97f8294[m Change training loss curve image from BMP to PNG
+[33me618c5f[m Add files via upload
+[33mf0b5d6c[m Correct image path for training loss curve
+[33mab85e34[m Initial commit (Tigrinya TrOCR)

@@ -14,32 +14,38 @@
 
 ---
 
-The first Transformer-based benchmark for printed Tigrinya OCR using the Ge'ez script. We fine-tune [TrOCR](https://arxiv.org/abs/2109.10282) with an extended tokenizer (+230 Ge'ez characters) and **Word-Aware Loss Weighting**, a technique that resolves systematic word-boundary failures caused by applying Latin-centric BPE to a non-Latin script. Both the handwritten and printed TrOCR-base variants are fine-tuned under identical conditions and converge to near-identical performance, confirming that the adaptation methodology rather than the pre-training domain is the dominant factor.
+
+**All experiments in this project are conducted on synthetic printed Tigrinya text line images. Both the TrOCR-Handwritten and TrOCR-Printed models, as well as the CRNN-CTC baseline, are evaluated exclusively on this printed dataset. No real handwritten text is used in this study.**
+
+This repository provides the first Transformer-based benchmark for printed Tigrinya OCR using the Ge'ez script. We fine-tune [TrOCR](https://arxiv.org/abs/2109.10282) with an extended tokenizer (+230 Ge'ez characters) and **Word-Aware Loss Weighting**, a technique that resolves systematic word-boundary failures caused by applying Latin-centric BPE to a non-Latin script. Both the handwritten and printed TrOCR-base variants are fine-tuned under identical conditions and converge to near-identical performance on printed data, confirming that the adaptation methodology rather than the pre-training domain is the dominant factor.
 
 The Tigrinya writing system uses the Ge'ez script (fidel), an abugida comprising 33 base consonants, 7 vowel orders (231 core syllographs), 4 labialized consonant groups, and 8 punctuation marks.
 
 ## Results
 
-### Both Variants (full test set, n=5,000)
 
-| Model | CER (%) | WER (%) | Accuracy (%) |
-|-------|---------|---------|--------------|
-| Handwritten variant | 0.20 | 0.77 | 97.44 |
-| Printed variant | 0.20 | 0.70 | 97.60 |
+### Main Results (Printed Synthetic Test Set, n=5,000)
+
+| Model                | CER (%) | WER (%) | Accuracy (%) |
+|----------------------|---------|---------|--------------|
+| TrOCR-Handwritten    | 0.38    | 1.15    | 96.86        |
+| TrOCR-Printed        | 0.22    | 0.87    | 97.20        |
+| CRNN-CTC Baseline    | 0.12    | 0.57    | 98.20        |
 
 ### Ablation: Word-Aware Loss Weighting
 
-| Approach | CER (%) | WER (%) | Accuracy (%) |
-|----------|---------|---------|--------------|
-| Standard training (no weighting) | 20.06 | 79.03 | 0.02 |
-| Word-Aware Loss Weighting | 0.20 | 0.77 | 97.44 |
+| Approach                        | CER (%) | WER (%) | Accuracy (%) |
+|---------------------------------|---------|---------|--------------|
+| Standard training (no weighting)| 20.06   | 79.03   | 0.02         |
+| Word-Aware Loss Weighting       | 0.22    | 0.87    | 97.20        |
+
 
 ### Zero-shot Baselines (n=500)
 
 | Model | CER (%) | Accuracy (%) |
 |-------|---------|--------------|
 | Handwritten (zero-shot) | 130.01 | 0.00 |
-| Printed (zero-shot) | 99.13 | 0.00 |
+| Printed (zero-shot)     | 99.13  | 0.00 |
 
 ## Project Structure
 ```
@@ -84,7 +90,7 @@ Test	5,000	25%
 Training
 ```
 python train.py
-Training completes in approximately 2 hours and 20 minutes per variant on a single 8 GB GPU.
+Training completes in approximately 2 hours and 40 minutes per variant on a single 8 GB GPU.
 ```
 ### Evaluation
 
@@ -130,10 +136,21 @@ Handwritten	microsoft/trocr-base-handwritten	IAM Handwriting Database
 Printed	microsoft/trocr-base-printed	Synthetic printed text
 
 ## Known Limitations
-Numerals and mixed-script text are the primary failure mode (55 of 128 error samples). The model may struggle with Arabic numerals or Latin characters embedded in Tigrinya text.
-Fine-tuned for printed text only; handwritten Tigrinya performance has not been evaluated.
-Trained on news domain text; performance on other domains (historical manuscripts, legal, medical) may vary.
-Evaluation is on synthetic text-line images; real scanned documents are untested.
+- Numerals and mixed-script text are the primary failure mode (55 of 128 error samples). The model may struggle with Arabic numerals or Latin characters embedded in Tigrinya text.
+- **All models are fine-tuned and evaluated on synthetic printed text only; handwritten Tigrinya performance has not been evaluated.**
+- Trained on news domain text; performance on other domains (historical manuscripts, legal, medical) may vary.
+- Evaluation is on synthetic text-line images; real scanned documents are untested.
+## CRNN-CTC Baseline
+
+We include a CRNN-CTC baseline trained and evaluated on the same synthetic printed Tigrinya dataset. This model achieves:
+
+| Metric | Value   |
+|--------|---------|
+| CER    | 0.12    |
+| WER    | 0.57    |
+| Acc    | 98.20   |
+
+This provides a strong baseline for comparison with transformer-based models.
 
 ## Computational Environment
 Component	Specification||
@@ -165,7 +182,8 @@ This project is licensed under the [Apache License 2.0](https://www.apache.org/l
 
 **Yonatan Haile Medhanie**
 College of Software Engineering, Nankai University
-
+**Yuanhua Ni**
+College of Artificial Intelligence, Nankai University
 
 
 ---

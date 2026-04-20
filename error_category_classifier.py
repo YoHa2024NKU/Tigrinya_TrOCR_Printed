@@ -9,7 +9,7 @@ import re
 import numpy as np
 
 # --- CONFIGURATION ---
-MODEL_PATH = "outputs/fast_model"
+MODEL_PATH = "outputs/fast_model_printed/best_model"
 DATA_ROOT = "data"
 TEST_FILE = os.path.join(DATA_ROOT, "test", "test.tsv")
 OUTPUT_DIR = "thesis_visuals"

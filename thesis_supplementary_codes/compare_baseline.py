@@ -9,11 +9,11 @@ import os
 import numpy as np
 
 # --- CONFIG ---
-MY_MODEL_PATH = "outputs/fast_model_printed"  
-VANILLA_MODEL = "microsoft/trocr-base-printed"
-#MY_MODEL_PATH = "outputs/fast_model"                 # Where fast_train.py saved the model (for Handwritten)
-#VANILLA_MODEL = "microsoft/trocr-base-handwritten"
-DATA_ROOT = "data"
+#MY_MODEL_PATH = "outputs/fast_model_printed/best_model"  
+#VANILLA_MODEL = "microsoft/trocr-base-printed"
+MY_MODEL_PATH = "outputs/fast_model/best_model"                 # Where fast_train.py saved the model (for Handwritten)
+VANILLA_MODEL = "microsoft/trocr-base-handwritten"
+DATA_ROOT = "D:\Tigrinya_OCR_Project\data"
 TEST_FILE = os.path.join(DATA_ROOT, "test", "test.tsv")
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 SAMPLE_SIZE = 500  # Subset size for quick comparison
@@ -114,8 +114,8 @@ def main():
     ax.bar_label(rects2, padding=3, fmt='%.1f%%', fontsize=10, weight='bold')
 
     plt.tight_layout()
-    plt.savefig("baseline_comparison.png", dpi=300)
-    print("\n✅ Saved comparison chart to 'baseline_comparison.png'")
+    plt.savefig("baseline_comparison_pr.png", dpi=300)
+    print("\n✅ Saved comparison chart to 'baseline_comparison_pr.png'")
     plt.show()
 
 if __name__ == "__main__":
