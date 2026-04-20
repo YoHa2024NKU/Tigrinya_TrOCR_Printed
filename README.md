@@ -122,6 +122,8 @@ python visualize.py
 
 ### Using the Pre-trained Models
 Both fine-tuned variants are available on Hugging Face:
+- https://huggingface.co/Yonatanhaile2026/tigrinya-trocrhandwritten
+- https://huggingface.co/Yonatanhaile2026/tigrinya-trocrprinted
 
 Handwritten variant:
 ```
