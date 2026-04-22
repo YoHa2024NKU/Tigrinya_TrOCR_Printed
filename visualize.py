@@ -6,6 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as font_manager
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+
 def plot_validation_loss():
     log_file = find_trainer_state(SEARCH_DIR)
     if not log_file:

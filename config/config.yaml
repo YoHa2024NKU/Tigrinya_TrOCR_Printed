@@ -36,3 +36,4 @@ hardware:
   gpu: "NVIDIA GeForce RTX 5060 (8GB VRAM)"
   dataloader_num_workers: 0  # Windows compatibility
   dataloader_pin_memory: true
+  

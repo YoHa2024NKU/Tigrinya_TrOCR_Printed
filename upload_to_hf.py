@@ -4,7 +4,7 @@ from huggingface_hub import HfApi
 
 
 
-MY_TOKEN = ""  # Paste  token here
+MY_TOKEN = ""  # Paste  token here 
 REPO_ID = "Yonatanhaile2026/tigrinya-trocrprinted"  #  Username / Model Name
 LOCAL_FOLDER = "outputs/fast_model_printed/best_model" 
 # -------------------------

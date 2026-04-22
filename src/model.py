@@ -2,6 +2,7 @@ from transformers import TrOCRProcessor, VisionEncoderDecoderModel
 from src.utils import Constants
 import logging
 
+
 def extend_tokenizer_and_model(config, train_df, device):
     """
     Extends the tokenizer with Ethiopic characters found in the training data
