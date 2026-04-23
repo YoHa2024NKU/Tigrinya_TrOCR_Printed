@@ -183,13 +183,14 @@ CUDA	12.8 //
 
 Citation
 ```
-@article{medhanie2026tigrinytrocr,
-author = {Yonatan Haile Medhanie and Yuanhua Ni},
-title = {Adapting TrOCR for Printed Tigrinya Text Recognition:
-Word-Aware Loss Weighting for Cross-Script Transfer Learning},
-journal = {arXiv preprint arXiv:XXXX.XXXXX},
-year = {2026},
-url = {https://arxiv.org/abs/XXXX.XXXXX}
+@misc{medhanie2026adaptingtrocrprintedtigrinya,
+      title={Adapting TrOCR for Printed Tigrinya Text Recognition: Word-Aware Loss Weighting for Cross-Script Transfer Learning}, 
+      author={Yonatan Haile Medhanie and Yuanhua Ni},
+      year={2026},
+      eprint={2604.20813},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2604.20813}, 
 }
 ```
 
